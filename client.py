@@ -1,16 +1,15 @@
 import socket
 import pygame as pg
 
-s=socket.socket()                       # arguementss (IPV4, TCP)
+c=socket.socket()                       # arguementss (IPV4, TCP)
 HOST1='192.168.0.55'                    # IPV4 address of the server
-HOST2="192.168.43.246"
 PORT=7070
-s.connect((HOST1,PORT))                 # connects client to an address
-msg=s.recv(64)                          # recieves a packet of 64 bytes from server
+c.connect((HOST1,PORT))                 # connects client to an address
+msg=c.recv(64)                          # recieves a packet of 64 bytes from server
 print(msg.decode('utf-8'))              # decodes bytes into string
 
 name=input()
-s.send(bytes(name,'utf-8'))             # encodes name string to bytes and sends to server
+c.send(bytes(name,'utf-8'))             # encodes name string to bytes and sends to server
 
 pg.init()                               # initiates pygame window
 
@@ -86,7 +85,7 @@ while not done:
 
     HEADER=chr(len(button))         # chr() returns the character whose ASCII value is passed to it
                                     # HEADER stores the character whose ASCII value is lenght of button
-    s.send(bytes(HEADER,'utf-8'))   # first we send HEADER so the server knows the length of button to recieve
-    s.send(bytes(button,'utf-8'))   # sending button to server
+    c.send(bytes(HEADER,'utf-8'))   # first we send HEADER so the server knows the length of button to recieve
+    c.send(bytes(button,'utf-8'))   # sending button to server
 
 pg.quit()  # quit pygame window
